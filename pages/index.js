@@ -1,8 +1,32 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import Head from "next/head";
+import Image from "next/image";
+import { useEffect } from "react";
+import { createForm, getEmail } from "../services/actions/contentful";
+import styles from "../styles/Home.module.css";
 
 export default function Home() {
+  const fetchData = async () => {
+    // const data = await getEmail('test@test.com');
+    const params = {
+      fullName: "Hello, World!",
+      candidate: "test",
+      email: "test1@test.com",
+      author: {
+        sys: {
+          type: "Link",
+          linkType: "Entry",
+          id: "7rOsdeN2TZ9QWu5sHwofDT",
+        },
+      },
+    };
+    const data = await createForm(params);
+    console.log(data);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -17,7 +41,7 @@ export default function Home() {
         </h1>
 
         <p className={styles.description}>
-          Get started by editing{' '}
+          Get started by editing{" "}
           <code className={styles.code}>pages/index.js</code>
         </p>
 
@@ -58,12 +82,12 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Powered by{" "}
           <span className={styles.logo}>
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
         </a>
       </footer>
     </div>
-  )
+  );
 }
