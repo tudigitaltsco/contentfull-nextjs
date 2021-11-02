@@ -33,6 +33,20 @@ export const createForm = async (params) => {
       })
     )
     .then((entry) => entry.publish())
-    .catch(console.error);
+    .catch((e) => {
+      throw e;
+    });
+  return data;
+};
+
+export const listSubmitData = async () => {
+  const data = await contentfulAPI()
+    .getSpace(process.env.CONTENTFUL_SPACE_ID)
+    .then((space) => space.getEnvironment("master"))
+    .then((environment) => environment.getEntries({'content_type': 'form'}))
+    .catch((e) => {
+      throw e;
+    });
+
   return data;
 };

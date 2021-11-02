@@ -2,7 +2,7 @@ import Head from "next/head";
 import { v4 as uuid } from "uuid";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { createForm, getEmail } from "../services/actions/contentful";
+import { createForm, getEmail, listSubmitData } from "../services/actions/contentful";
 import styles from "../styles/Home.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -23,7 +23,8 @@ export default function Home() {
     setCandidate(e.target.value);
   };
   const fetchData = async () => {
-    const data = await getEmail("thao.lt@gnt.com.vn");
+    // const data = await getEmail("thao.lt@gnt.com.vn");
+    const data = await listSubmitData();
 
     console.log(data);
   };
